@@ -1,3 +1,22 @@
+@media only screen and (max-width: 768px) {
+    /* Tablet version styles here */
+}
+
+@media only screen and (max-width: 576px) {
+    /* Mobile version styles here */
+}
+
+.button-class {
+    transition: opacity 0.3s ease;
+}
+
+/* TASK 0 - Buttonhover/active & Opacity: 0.9 */
+.button-class:hover, .button-class:active {
+    opacity: 0.9;
+}
+
+
+
 :root {
   --main-color: #c271ff;
   --opacity-value: 0.9;
