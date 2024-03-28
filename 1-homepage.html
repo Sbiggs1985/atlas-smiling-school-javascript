@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="font-style.css" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="scripts.js" />
     
     <!-- Google Fonts -->
     <link
@@ -143,17 +144,19 @@
       </div>
     </header>
 
-
     <!--CAROUSEL-->
     <main class="main">
       <section class="quotes section d-flex align-items-center">
         <div class="container">
+          <div class="loader"></div>
+          <!--FOR LOADER-->
+          <div id="dynamic-carousel"></div>
           <div
             id="carouselExampleControls"
             class="carousel slide"
             data-ride="carousel"
           >
-            <div class="carousel-inner"> <!--This links to scripts.js for the ajax request-->
+            <div class="carousel-inner">
               <div class="carousel-item active">
                 <div class="row mx-auto align-items-center">
                   <div class="col-12 col-sm-2 col-lg-2 offset-lg-1 text-center">
@@ -251,7 +254,6 @@
         </div>
       </section>
       <!--END OF CAROUSEL-->
-
 
       <section class="popular section d-flex align-items-center">
         <div class="container">
