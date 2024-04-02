@@ -1,38 +1,37 @@
 /** @format */
-
-/* Task 1 BELOW*/
 $(document).ready(function () {
-        fetchQuotes(); // Fetch quotes initially
+  fetchQuotes(); // Fetch quotes initially
 
-        function fetchQuotes() {
-            // Display loader
-            $("#loader").show();
+  function fetchQuotes() {
+    // Display loader
+    $(".loader").show();
 
-            $.ajax({
-                url: "https://smileschool-api.hbtn.info/quotes",
-                method: "GET",
-                success: function (data) {
-                    $("#loader").remove(); 
+    $.ajax({
+      url: "https://smileschool-api.hbtn.info/quotes",
+      method: "GET",
+      success: function (data) {
+        $(".loader").hide();
 
-                    // Update carousel with fetched quotes
-                    updateCarousel(data);
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error fetching quotes:", error);
-                    $("#loader").hide();
-                },
-            });
-        }
+        // Update carousel with fetched quotes
+        updateCarousel(data);
+      },
+      error: function (xhr, status, error) {
+        console.error("Error fetching quotes:", error);
+        $("#loader").hide();
+      },
+    });
+  }
+});
 
-        function updateCarousel(quotes) {
-            // Get carousel inner element
-            var carouselInner = $("#dynamic-carousel .carousel-inner");
-            carouselInner.empty(); // Clear existing quotes
+function updateCarousel(quotes) {
+  // Get carousel inner element
+  var carouselInner = $(".carousel-inner");
+  carouselInner.empty(); // Clear existing quotes
 
-            // Iterate through fetched quotes and create carousel items
-            quotes.forEach(function (quote, index) {
-                var activeClass = index === 0 ? "active" : ""; // Add 'active' class to first quote
-                var item = `
+  // Iterate through fetched quotes and create carousel items
+  quotes.forEach(function (quote, index) {
+    var activeClass = index === 0 ? "active" : ""; // Add 'active' class to first quote
+    var item = `
                     <div class="carousel-item ${activeClass}">
                         <div class="row mx-auto align-items-center">
                             <div class="col-12 col-sm-2 col-lg-2 offset-lg-1 text-center">
@@ -48,10 +47,12 @@ $(document).ready(function () {
                         </div>
                     </div>
                 `;
-                carouselInner.append(item); // Append carousel item
-            });
+    console.log(item);
+    carouselInner.append(item); // Append carousel item
+  });
 
-            // Trigger carousel initialization
-            carouselInner.find(".carousel-item").first().addClass("active");
-        }
-    });
+  // Trigger carousel initialization
+  carouselInner.find(".carousel-item").first().addClass("active");
+}
+
+
