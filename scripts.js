@@ -25,7 +25,7 @@ $(document).ready(function () {
 
 function updateCarousel(quotes) {
   // Get carousel inner element
-  var carouselInner = $(".carousel-inner");
+  var carouselInner = $(".carousel-inner-quotesection");
   carouselInner.empty(); // Clear existing quotes
 
   // Iterate through fetched quotes and create carousel items
@@ -54,5 +54,3 @@ function updateCarousel(quotes) {
   // Trigger carousel initialization
   carouselInner.find(".carousel-item").first().addClass("active");
 }
-
-
