@@ -54,3 +54,85 @@ function updateCarousel(quotes) {
   // Trigger carousel initialization
   carouselInner.find(".carousel-item").first().addClass("active");
 }
+
+// TASK 2
+function populateTutorials() {
+  const carousel = $('#tutorial-carousel');
+
+  $.ajax({
+      url: "https://smileschool-api.hbtn.info/popular-tutorials",
+      method: "GET",
+      beforeSend: function () {
+          $('#loading-tutorials').removeClass('d-none');
+      },
+      success: function (response) {
+          response.forEach((tutorial, index) => {
+              const card = createCard(tutorial);
+              carousel.append(card);
+
+              if (index === 0) {
+                  card.addClass('active');
+              }
+          });
+
+          initializeCarousel(carousel);
+      },
+      error: function () {
+          alert("Error loading tutorials");
+      },
+      complete: function () {
+          $('#loading-tutorials').addClass('d-none');
+          $('#tutorial-carousel').removeClass('d-none');
+      }
+  });
+}
+
+function createCard(tutorial) {
+  const card = $('<div>').addClass('card p-3');
+  const thumbnail = $('<img>').addClass('card-img-top').attr('src', tutorial['thumb_url']);
+  const overlay = $('<div>').addClass('card-img-overlay d-flex justify-content-center align-items-center text-center');
+  const playButton = $('<img>').addClass('play-overlay').attr('src', 'images/play.png').attr('width', '64px');
+  overlay.append(playButton);
+  const body = $('<div>').addClass('card-body');
+  const title = $('<h5>').addClass('card-title font-weight-bold').text(tutorial['title']);
+  const description = $('<p>').addClass('card-text text-muted').text(tutorial['sub-title']);
+  const author = $('<div>').addClass('creator d-flex align-items-center');
+  const authorImage = $('<img>').addClass('rounded-circle').attr('src', tutorial['author_pic_url']).attr('width', '30px');
+  const authorName = $('<h6>').addClass('pl-3 m-0 main-color').text(tutorial['author']);
+  author.append(authorImage, authorName);
+  const footer = $('<div>').addClass('info pt-3 d-flex justify-content-between');
+  const rating = $('<div>').addClass('rating d-flex');
+  for (let i = 1; i < 6; i++) {
+      const star = i <= tutorial['star'] ? $('<img>').attr('src', 'images/star_on.png') : $('<img>').attr('src', 'images/star_off.png');
+      star.attr('width', '15px').attr('height', '15px');
+      rating.append(star);
+  }
+  const time = $('<span>').addClass('main-color').text(tutorial['duration']);
+  footer.append(rating, time);
+  body.append(title, description, author, footer);
+  card.append(thumbnail, overlay, body);
+  return card;
+}
+
+function initializeCarousel(carousel) {
+  carousel.slick({
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      prevArrow: $('.prev1'),
+      nextArrow: $('.next1'),
+      responsive: [
+          {
+              breakpoint: 768,
+              settings: {
+                  slidesToShow: 2,
+              },
+          },
+          {
+              breakpoint: 576,
+              settings: {
+                  slidesToShow: 1,
+              },
+          },
+      ],
+  });
+}
